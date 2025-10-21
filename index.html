@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FocusTasks 6092</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <h1 id="app-title">FocusTasks 6092</h1>
+    <div id="analytics" aria-live="polite" class="analytics">Active: 0 · Done: 0 · Done %: 0.0%</div>
+  </header>
+
+  <main id="main" role="main" class="container">
+    <section class="column" aria-labelledby="active-heading">
+      <h2 id="active-heading">Active</h2>
+
+      <form id="add-form" aria-describedby="add-hint" novalidate>
+        <label for="task-input">Add task</label>
+        <div class="input-row">
+          <input id="task-input" name="title" type="text" required aria-required="true" />
+          <button id="add-btn" type="submit">Add</button>
+        </div>
+        <div id="error" role="alert" aria-live="assertive" class="error" hidden></div>
+      </form>
+
+      <div id="active-list" class="list" tabindex="0" aria-label="Active tasks list"></div>
+    </section>
+
+    <section class="column" aria-labelledby="done-heading">
+      <h2 id="done-heading">Done</h2>
+      <div id="done-list" class="list" tabindex="0" aria-label="Done tasks list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <small>FocusTasks — local-only demo</small>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

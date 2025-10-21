@@ -1,0 +1,40 @@
+Title: Use of a closure-based client-side store for FocusTasks
+Date: 2025-10-21
+
+Context
+-------
+This app is a small, single-page, client-only tasks demo which must persist to localStorage and expose a small API shape:
+  const store = createStore(`focustasks_${SID4}`);
+  store.add({ id, title, done: false });
+  store.toggle(id);
+  store.remove(id);
+  store.list();
+
+Decision
+--------
+Implement the store as a closure (createStore) which:
+ - encapsulates the in-memory state and the storage key (no top-level tasks variable).
+ - hydrates state from localStorage during initialization.
+ - exposes controlled methods (add, toggle, remove, list) which mutate internal state and persist to localStorage.
+
+Consequences
+------------
++ Keeps global namespace minimal and avoids accidental external mutation.
++ Simplifies unit testing: the store's state is only accessible via its API.
++ Storage key is injected at creation (so student-specific SID4 is enforced).
+- Persistence happens synchronously to localStorage (acceptable for this small app).
+- The app remains client-only; no server-side validation or multi-user sync is provided.
+
+Security / XSS notes
+--------------------
+All user-supplied text is inserted using textContent (not innerHTML). An escapeHTML utility exists and demonstrates safe escaping of critical characters.
+While client-side escaping prevents DOM injection for this single-user demo, server-side escaping and CSP are required for multi-user/server-rendered deployments.
+
+Alternatives considered
+-----------------------
+1) Global tasks variable – rejected because of accidental mutation risk and testability concerns.
+2) IndexedDB – overkill for this exercise; localStorage suffices.
+
+Status
+------
+Implemented.
